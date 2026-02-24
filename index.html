@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Modern vintage-themed clock with glassmorphism design">
+    <title>Modern Clock - Vintage Timepiece</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Source+Sans+Pro:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Particle background -->
+        <canvas id="particle-canvas" class="particle-background"></canvas>
+        
+        <!-- Animated gradient background -->
+        <div class="animated-gradient"></div>
+        
+        <!-- Main clock card -->
+        <main class="clock-card glass-panel">
+            <!-- Header with controls -->
+            <header class="clock-header">
+                <h1 class="clock-title">Vintage Clock</h1>
+                <div class="control-group">
+                    <button id="theme-toggle" class="control-btn" aria-label="Toggle theme">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="5"/>
+                            <line x1="12" y1="1" x2="12" y2="3"/>
+                            <line x1="12" y1="21" x2="12" y2="23"/>
+                            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+                            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+                            <line x1="1" y1="12" x2="3" y2="12"/>
+                            <line x1="21" y1="12" x2="23" y2="12"/>
+                            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+                            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+                        </svg>
+                    </button>
+                    <button id="format-toggle" class="control-btn" aria-label="Toggle time format">
+                        <span id="format-display">12h</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Clock display -->
+            <div class="clock-display">
+                <div class="clock-face">
+                    <!-- Analog clock -->
+                    <svg class="analog-clock" viewBox="0 0 200 200" width="200" height="200">
+                        <!-- Clock background circle -->
+                        <circle cx="100" cy="100" r="95" class="clock-circle"/>
+                        
+                        <!-- Hour markers -->
+                        <g class="hour-markers">
+                            <line x1="100" y1="10" x2="100" y2="20" class="marker major"/>
+                            <line x1="159.1" y1="15.45" x2="154.3" y2="23.4" class="marker"/>
+                            <line x1="186.6" y1="50" x2="176.6" y2="55" class="marker"/>
+                            <line x1="189.1" y1="100" x2="180" y2="100" class="marker major"/>
+                            <line x1="186.6" y1="150" x2="176.6" y2="145" class="marker"/>
+                            <line x1="159.1" y1="184.55" x2="154.3" y2="176.6" class="marker"/>
+                            <line x1="100" y1="190" x2="100" y2="180" class="marker major"/>
+                            <line x1="40.9" y1="184.55" x2="45.7" y2="176.6" class="marker"/>
+                            <line x1="13.4" y1="150" x2="23.4" y2="145" class="marker"/>
+                            <line x1="10.9" y1="100" x2="20" y2="100" class="marker major"/>
+                            <line x1="13.4" y1="50" x2="23.4" y2="55" class="marker"/>
+                            <line x1="40.9" y1="15.45" x2="45.7" y2="23.4" class="marker"/>
+                        </g>
+                        
+                        <!-- Hour hand -->
+                        <line class="hand hour-hand" x1="100" y1="100" x2="100" y2="60" stroke-linecap="round"/>
+                        
+                        <!-- Minute hand -->
+                        <line class="hand minute-hand" x1="100" y1="100" x2="100" y2="40" stroke-linecap="round"/>
+                        
+                        <!-- Second hand -->
+                        <line class="hand second-hand" x1="100" y1="100" x2="100" y2="30" stroke-linecap="round"/>
+                        
+                        <!-- Center dot -->
+                        <circle cx="100" cy="100" r="6" class="center-dot"/>
+                    </svg>
+                </div>
+                
+                <!-- Digital display -->
+                <div class="digital-display">
+                    <div class="time-group">
+                        <div id="digital-time" class="digital-time">00:00:00</div>
+                        <div id="digital-period" class="digital-period"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Date display -->
+            <div class="date-display">
+                <p id="current-date" class="date-text">Monday, January 01, 2024</p>
+            </div>
+
+            <!-- Controls section -->
+            <section class="controls-section">
+                <!-- Timezone selector -->
+                <div class="control-item">
+                    <label for="timezone-select" class="control-label">Timezone</label>
+                    <select id="timezone-select" class="control-select glass-input">
+                        <option value="local">Local Time</option>
+                        <option value="America/New_York">New York (EST/EDT)</option>
+                        <option value="America/Chicago">Chicago (CST/CDT)</option>
+                        <option value="America/Denver">Denver (MST/MDT)</option>
+                        <option value="America/Los_Angeles">Los Angeles (PST/PDT)</option>
+                        <option value="Europe/London">London (GMT/BST)</option>
+                        <option value="Europe/Paris">Paris (CET/CEST)</option>
+                        <option value="Asia/Tokyo">Tokyo (JST)</option>
+                        <option value="Asia/Shanghai">Shanghai (CST)</option>
+                        <option value="Asia/Hong_Kong">Hong Kong (HKT)</option>
+                        <option value="Australia/Sydney">Sydney (AEDT/AEST)</option>
+                        <option value="Pacific/Auckland">Auckland (NZDT/NZST)</option>
+                    </select>
+                </div>
+
+                <!-- Alarm section -->
+                <div class="control-item">
+                    <label for="alarm-toggle" class="control-label">Alarm</label>
+                    <div class="alarm-controls">
+                        <input type="time" id="alarm-time" class="control-input glass-input" disabled>
+                        <button id="alarm-toggle" class="control-btn alarm-btn" aria-label="Toggle alarm">
+                            <span id="alarm-status">OFF</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Sound toggle -->
+                <div class="control-item">
+                    <label for="sound-toggle" class="control-label">Sounds</label>
+                    <button id="sound-toggle" class="control-btn sound-btn" aria-label="Toggle sounds">
+                        <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
+                            <path d="M15.54 8.46a7 7 0 0 1 0 9.9M17.9 4.1a11 11 0 0 1 0 15.8"/>
+                        </svg>
+                        <span id="sound-status">ON</span>
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <!-- Alarm notification -->
+        <div id="alarm-notification" class="alarm-notification" hidden>
+            <div class="notification-content">
+                <h2>Alarm!</h2>
+                <p id="alarm-time-display">Time's up!</p>
+                <button id="alarm-dismiss" class="control-btn">Dismiss</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/models/TimeModel.js"></script>
+    <script src="js/models/AlarmModel.js"></script>
+    <script src="js/models/SettingsModel.js"></script>
+    <script src="js/services/ParticleEngine.js"></script>
+    <script src="js/services/AudioManager.js"></script>
+    <script src="js/ui/ClockRenderer.js"></script>
+    <script src="js/ui/ControlsManager.js"></script>
+    <script src="js/ui/ThemeManager.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
