@@ -1,0 +1,13 @@
+{
+  "project_type": "node",
+  "scaffold_command": null,
+  "steps": [
+    {
+      "step_number": 1,
+      "description": "Complete implementation",
+      "commit_message": "feat: complete implementation",
+      "files": []
+    }
+  ],
+  "test_command": "echo 'No tests defined'"
+}
